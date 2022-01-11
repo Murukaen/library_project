@@ -59,10 +59,12 @@
           <td> {{ book.title }} </td>
           <td> {{ book.author }} </td>
           <td>
-            {% if book.is_available %}
-              Available
-            {% else %}
+            {% if book.is_rented %}
               Rented
+            {% elif book.is_reserved %}
+              Reserved
+            {% else %}
+              <a href="{% url 'library:reserve' book.id %}"> Available </a>
             {% endif %}    
           </td>  
   
