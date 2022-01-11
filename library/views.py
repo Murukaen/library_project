@@ -40,6 +40,3 @@ def view_login(request):
                 'error_msg': 'Login failed'
             });
         
-def view_signup(request):
-    pass
-
