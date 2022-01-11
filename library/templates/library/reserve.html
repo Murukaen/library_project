@@ -4,10 +4,16 @@
 
 {% block content %}
   <div class="row">
-    <span> Book title: {{book.title}} </span>
+    <span> <strong> Book title </strong>: {{book.title}} </span>
   </div>
   <div class="row">
-    <span> Author: {{book.author}} </span>
+    <span> <strong> Author </strong>: {{book.author}} </span>
+  </div>
+  <div class="row">
+    <span> <strong> About </strong>: {{book.about}} </span>
+  </div>
+  <div class="row">
+    <span> <strong> Genre </strong>: {{book.genre}} </span>
   </div>
   <div class="row">
     <form class="m-3" action="?" method="post">

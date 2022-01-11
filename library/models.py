@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 class Book(models.Model):
     title = models.CharField(max_length=64)
     author = models.CharField(max_length=64)
+    about = models.CharField(max_length=1024)
+    genre = models.CharField(max_length=32)
     def is_rented(self):
         return len(Rental.objects.filter(book=self)) > 0
     def is_reserved(self):
