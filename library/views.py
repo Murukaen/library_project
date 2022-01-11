@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Book
+from .models import Book, Reservation
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import logout, authenticate, login
+from django.utils import timezone
 
 
 def index(request):
@@ -23,12 +24,9 @@ def view_logout(request):
     return HttpResponseRedirect(reverse('library:index'))
 
 def view_login(request):
-    print('view_login')
     if request.method == 'GET':
-        print('GET')
         return render(request, 'library/login.html')
     else:
-        print('POST')
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
@@ -42,4 +40,12 @@ def view_login(request):
 
 def reserve(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
-    return render(request, 'library/reserve.html', {'book': book})
+    if request.method == 'GET':
+        return render(request, 'library/reserve.html', {'book': book})
+    else:
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('library:login'))
+        else:
+            reservation = Reservation(book=book, user=request.user, expiry_date=timezone.now() + timezone.timedelta(weeks=1))
+            reservation.save()
+            return HttpResponseRedirect(reverse('library:index'))
