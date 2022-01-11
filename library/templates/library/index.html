@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+{% if books %}
+  <form action="{% url 'library:index' %}" method="post">
+    {% csrf_token %}
+    <input id="search" name="search" type="text" />
+    <button type="submit" value = "Submit"> Search </button>
+  </form>
+  <table>
+    <tr>
+      <th> Title </th>
+      <th> Author </th>
+    </tr>
+    {% for book in books %}
+      <tr>
+        <td> {{ book.title }} </td>
+        <td> {{book.author}} </td>
+      </tr>
+  {% endfor %}
+    </table>  
+{% else %}
+  <p>No books are available.</p>
+{% endif %}
+
+</body>
+</html>
