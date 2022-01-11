@@ -3,7 +3,7 @@ from .models import Book
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
 
 
 def index(request):
@@ -23,8 +23,23 @@ def view_logout(request):
     return HttpResponseRedirect(reverse('library:index'))
 
 def view_login(request):
-    pass
-
+    print('view_login')
+    if request.method == 'GET':
+        print('GET')
+        return render(request, 'library/login.html')
+    else:
+        print('POST')
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('library:index'))
+        else:
+            return render(request, 'library/login.html', {
+                'error_msg': 'Login failed'
+            });
+        
 def view_signup(request):
     pass
 

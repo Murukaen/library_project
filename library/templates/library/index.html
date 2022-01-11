@@ -34,16 +34,10 @@
         </li>
       {% else %}
         <li class="nav-item mr-2">
-          <form class="form-inline" action="{% url 'library:login' %}" method="post">
-            {% csrf_token %}
-            <button class="btn btn-light" type="submit"> Login </button>
-          </form> 
+          <a class="btn btn-light" href="{% url 'library:login' %}"> Login </a>
         </li>
         <li class="nav-item">
-          <form class="form-inline" action="{% url 'library:signup' %}" method="post">
-            {% csrf_token %}
-            <button class="btn btn-light" type="submit"> Signup </button>
-          </form> 
+          <a class="btn btn-light" href="{% url 'library:signup' %}"> Signup </a>
         </li>
       {% endif %}
     </ul>  
