@@ -12,11 +12,20 @@
     <tr>
       <th> Title </th>
       <th> Author </th>
+      <th> Availability </th>
     </tr>
     {% for book in books %}
       <tr>
         <td> {{ book.title }} </td>
-        <td> {{book.author}} </td>
+        <td> {{ book.author }} </td>
+        <td>
+          {% if book.is_available %}
+            Available
+          {% else %}
+            Rented
+          {% endif %}    
+        </td>  
+
       </tr>
   {% endfor %}
     </table>  
