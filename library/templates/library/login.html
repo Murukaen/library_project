@@ -6,12 +6,12 @@
   <h2 class="m-3"> Log in </h2>
 
   {% if error_msg %}
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger m-3 login" role="alert">
       {{error_msg}}
     </div>
   {% endif %}
 
-  <form class="m-3" action="?" method="post">
+  <form class="m-3 login" action="?" method="post">
     {% csrf_token %}
     <div class="form-group">
       <label for="username">Username</label>

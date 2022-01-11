@@ -6,3 +6,7 @@
 .search-text-badge {
   background-color: #CCCCCC;
 }
+
+form.login, div.login.alert {
+  max-width: 300px;
+}
