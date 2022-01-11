@@ -14,7 +14,11 @@
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-  
+        {% if user and user.is_authenticated %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'library:my_books' %}">My books</a>
+          </li>
+        {% endif %}
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item mr-2">

@@ -1,0 +1,25 @@
+{% extends "library/layout.html" %}
+
+{% block title %}Library - My Books{% endblock %}
+
+{% block content %}
+  <h1> My Books </h1>
+
+  <table class="table mt-3">
+    <tr>
+      <th> Title </th>
+      <th> Author </th>
+      <th> Status </th>
+      <th> Expiration date </th>
+    </tr>
+    {% for book in books %}
+      <tr>
+        <td> {{ book.0.title }} </td>
+        <td> {{ book.0.author }} </td>
+        <td> Reserved </td>
+        <td> {{ book.1 }} </td>
+      </tr>
+    {% endfor %}
+  </table> 
+{% endblock %}
+

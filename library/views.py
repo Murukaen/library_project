@@ -36,16 +36,30 @@ def view_login(request):
         else:
             return render(request, 'library/login.html', {
                 'error_msg': 'Login failed'
-            });
+            })
 
 def reserve(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
     if request.method == 'GET':
-        return render(request, 'library/reserve.html', {'book': book})
+        return render(request, 'library/reserve.html', {
+            'book': book,
+            'user': request.user,
+        })
     else:
         if not request.user.is_authenticated:
             return HttpResponseRedirect(reverse('library:login'))
         else:
             reservation = Reservation(book=book, user=request.user, expiry_date=timezone.now() + timezone.timedelta(weeks=1))
             reservation.save()
-            return HttpResponseRedirect(reverse('library:index'))
+            return HttpResponseRedirect(reverse('library:my_books'))
+
+def my_books(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('library:login'))
+    else:
+        books = [(reservation.book, reservation.expiry_date.strftime("%Y-%m-%d %H")) for reservation in Reservation.objects.filter(user=request.user)]
+        print(books)
+        return render(request, 'library/my_books.html', {
+            'user': request.user,
+            'books': books
+        })
