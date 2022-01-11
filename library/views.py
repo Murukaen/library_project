@@ -8,6 +8,7 @@ from django.utils import timezone
 
 
 def index(request):
+    search_str = None
     if request.POST.get('search'):
         search_str = request.POST['search']
         books = Book.objects.filter(Q(title__contains=search_str) | Q(author__contains=search_str))
