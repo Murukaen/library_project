@@ -16,6 +16,7 @@ def index(request):
     context = {
         'books': books,
         'user': request.user,
+        'search_str': search_str
     }
     return render(request, 'library/index.html', context)
 
