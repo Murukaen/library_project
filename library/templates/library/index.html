@@ -3,15 +3,15 @@
 {% block title %}Library{% endblock %}
 
 {% block content %}
+  <form class="form-inline" action="{% url 'library:index' %}" method="post">
+    {% csrf_token %}
+    <input class="form-control" id="search" name="search" type="text" />
+    <button class="btn btn-light ml-2" type="submit" value = "Submit"> Search </button>
+    {% if search_str %}
+      <span class="ml-2"> Displaying results for query <span class="badge badge-default search-text-badge">{{search_str}}</span> </span>
+    {% endif %}
+  </form>
   {% if books %}
-    <form class="form-inline" action="{% url 'library:index' %}" method="post">
-      {% csrf_token %}
-      <input class="form-control" id="search" name="search" type="text" />
-      <button class="btn btn-light ml-2" type="submit" value = "Submit"> Search </button>
-      {% if search_str %}
-        <span class="ml-2"> Displaying results for query <span class="badge badge-default search-text-badge">{{search_str}}</span> </span>
-      {% endif %}
-    </form>
     <table class="table mt-3">
       <tr>
         <th> Title </th>
@@ -31,7 +31,6 @@
               <a href="{% url 'library:reserve' book.id %}"> Available </a>
             {% endif %}    
           </td>  
-  
         </tr>
     {% endfor %}
       </table>  
